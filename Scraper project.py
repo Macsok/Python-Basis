@@ -327,7 +327,7 @@ bricks = pd.DataFrame(dict_data)
 def plot_histogram(x):
     #   Draw a histogram
     plt.hist(sorted(x), density=True, facecolor='g', alpha = 0.5)  # density=False would make counts
-    plt.ylabel('Density')
+    plt.ylabel('Distribution')
     plt.xlabel('Salary')
     plt.grid(True)
     plt.yticks([])
@@ -388,14 +388,15 @@ def comparision_histogram(file1 = '', file2 = '', file3 = '', file4 = ''):
             return []
         
     #   Generate multiplot
-    plt.hist(avg_salary_list_from_file(file1), density=True, facecolor='green', alpha = 0.5, label = file1)
-    plt.hist(avg_salary_list_from_file(file2), density=True, facecolor='blue', alpha = 0.5, label = file2)
-    plt.hist(avg_salary_list_from_file(file3), density=True, facecolor='magenta', alpha = 0.5, label = file3)
-    plt.hist(avg_salary_list_from_file(file4), density=True, facecolor='yellow', alpha = 0.5, label = file4)
+    plt.hist(avg_salary_list_from_file(file1), density=True, facecolor='green', alpha = 0.5, label = file1.split('/')[-1].split('.')[0])
+    plt.hist(avg_salary_list_from_file(file2), density=True, facecolor='blue', alpha = 0.5, label = file2.split('/')[-1].split('.')[0])
+    plt.hist(avg_salary_list_from_file(file3), density=True, facecolor='magenta', alpha = 0.5, label = file3.split('/')[-1].split('.')[0])
+    plt.hist(avg_salary_list_from_file(file4), density=True, facecolor='yellow', alpha = 0.5, label = file4.split('/')[-1].split('.')[0])
     plt.yticks([])
     plt.xlabel('Salary')
     plt.ylabel('Density')
     plt.legend(loc = 'upper right')
+    plt.grid(True)
     plt.show()
 
 if compare:
