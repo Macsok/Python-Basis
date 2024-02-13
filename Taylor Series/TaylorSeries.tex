@@ -1,0 +1,37 @@
+\documentclass[]{article}
+\usepackage[a4paper]{geometry}
+\usepackage{polski}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{pgfplots}
+\newtheorem{theorem}{Twierdzenie}
+%opening
+\title{Wzór Taylora - przybliżanie funkcji różniczkowalnej w otoczeniu pewnego punktu $x_0$}
+\author{Maciej S.}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Przybliżenie zadanej funkcji (różniczkowalnej) $f$ w otoczeniu pewnego punktu $x_0$ za pomocą wzoru Taylora.
+\end{abstract}
+
+\section{Wzór Taylora}
+Wzór Taylora – przedstawienie funkcji $n+1$-razy różniczkowalnej za pomocą sumy wielomianu $n$-tego stopnia, zależnego od kolejnych jej pochodnych oraz dostatecznie małej reszty. Twierdzenia mówiące o możliwości takiego przedstawiania pewnych funkcji (nawet dość abstrakcyjnych przestrzeni) noszą zbiorczą nazwę twierdzeń Taylora od nazwiska angielskiego matematyka Brooka Taylora, który opublikował pracę na temat lokalnego przybliżania funkcji rzeczywistych w podany niżej sposób. Ta własność funkcji różniczkowalnych znana była już przed Taylorem – w 1671 odkrył ją James Gregory.
+
+W przypadku funkcji nieskończenie wiele razy różniczkowalnych, przedstawienie oparte na tej własności może przyjąć postać szeregu zwanego szeregiem Taylora. Poniżej podane jest uogólnione twierdzenie Taylora dla funkcji o wartościach w dowolnych przestrzeniach unormowanych – w szczególności jest więc ono prawdziwe dla funkcji o wartościach rzeczywistych czy wektorowych.
+
+\begin{theorem}[Twierdzenie Taylora]
+Niech $f$ będzie funkcją na przedziale $[a, b]$ o wartościach rzeczywistych (bądź ogólniej, o wartościach w przestrzeni unormowanej $Y$) różniczkowalną $n+1$-razy w sposób ciągły (na końcach przedziału zakłada się różniczkowalność z lewej, bądź odpowiednio, z prawej strony). Wówczas dla każdego punktu $x$ z przedziału $(a, b)$ spełniony jest wzór zwany wzorem Taylora:
+\end{theorem}
+
+$$f(x) = \sum_{k = 0}^{n}\frac{f^{(k)}(x_0)}{k!}(x-x_0)^k + R_n(x, x_0)$$
+n-tą resztą (resztą Peano wzoru Taylora) nazywamy wyraz:
+$$R_n = \frac{f^{(n)}(c)}{n!}(x-x_0)^n$$
+Wzorem Maclaurina nazywamy szereg Taylora, gdzie $x_0 = 0$.
+
+\begin{figure}[t]
+	\input{plots/test.pgf}
+\end{figure}
+\end{document}
