@@ -1,5 +1,8 @@
 import math
-file_path = 'test.txt'
+
+#   specify input and output files
+file_path = 'do_kompresji.txt'
+compressed_path = 'compressed.txt'
 
 #def create_dictionary(file_path):
 dictionary = {}
@@ -27,8 +30,7 @@ N = math.ceil(math.log2(len(dictionary)))
 #   how many bits should be added to form whole byte
 R = (8 - (3 + N * k) % 8) % 8
 
-#   append to a new file
-compressed_path = 'compressed.txt'
+#   clear output file
 try: open(compressed_path, 'w').close()
 except: print('Unable to clear output file.')
 
@@ -55,3 +57,37 @@ def save_in_binary(file_path, compressed_path, add_dictionary):
         
         #   add extra bits to make sure the output is in whole bytes
         output.write('0' * R)
+
+
+def compress(file_path, compressed_path):
+    #   open output file with append option
+    with open(compressed_path, "a", encoding='utf-8') as output:
+        #   length of the dictionary
+        output.write(chr(len(dictionary)))
+
+        #   add dictionary in ASCII
+        for key in dictionary.keys():
+            output.write(key)
+
+        #   added bits - strored on 3 bits
+        buff = '{0:08b}'.format(R)[-3:]
+
+        #   read file to compress each element
+        with open(file_path, 'r') as file:
+            for line in file:
+                for element in line:
+                    #   append every element to buffor (in binary), only N last bits
+                    buff += '{0:08b}'.format(ind_dict[element])[-N:]
+
+                    #   if bit count >= 8 then store to file
+                    if len(buff) >= 8:
+                        #   convert first 8 bits to int then to char
+                        output.write(chr(int(buff[:8], 2)))
+                        buff = buff[8:]
+        
+        #   add extra bits to make sure the output is in whole bytes
+        if R:
+            buff += str('0' * R)
+            output.write(chr(int(buff[:8], 2)))
+
+compress(file_path, compressed_path)
