@@ -1,10 +1,10 @@
 import math
+import time
 
 #   specify input and output files
 file_path = 'do_kompresji.txt'
 compressed_path = 'compressed.txt'
 
-#def create_dictionary(file_path):
 dictionary = {}
 with open(file_path, 'r') as file:
     for line in file:
@@ -30,11 +30,14 @@ N = math.ceil(math.log2(len(dictionary)))
 #   how many bits should be added to form whole byte
 R = (8 - (3 + N * k) % 8) % 8
 
+#   print dictionary properties
+print(f'Dict: {ind_dict.keys()}\ndict. len: {len(dictionary)}\nN: {N}\nR: {R}')
+
 #   clear output file
 try: open(compressed_path, 'w').close()
 except: print('Unable to clear output file.')
 
-def save_in_binary(file_path, compressed_path, add_dictionary):
+def save_in_binary(file_path, compressed_path, add_dictionary=True):
     #   open output file with append option
     with open(compressed_path, "a") as output:
         #   length of the dictionary
@@ -60,13 +63,15 @@ def save_in_binary(file_path, compressed_path, add_dictionary):
 
 
 def compress(file_path, compressed_path):
+    start = time.time()
     #   open output file with append option
-    with open(compressed_path, "a", encoding='utf-8') as output:
+    print('Compressing...')
+    with open(compressed_path, 'a', encoding='ISO 8859-1') as output:
         #   length of the dictionary
-        output.write(chr(len(dictionary)))
+        output.write(chr(len(ind_dict)))
 
         #   add dictionary in ASCII
-        for key in dictionary.keys():
+        for key in ind_dict.keys():
             output.write(key)
 
         #   added bits - strored on 3 bits
@@ -89,5 +94,8 @@ def compress(file_path, compressed_path):
         if R:
             buff += str('0' * R)
             output.write(chr(int(buff[:8], 2)))
+    stop = time.time()
+    print(f'Time: {stop - start}')
 
 compress(file_path, compressed_path)
+#save_in_binary(file_path, compressed_path)
