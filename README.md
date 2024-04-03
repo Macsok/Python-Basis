@@ -12,3 +12,7 @@ Web scraper directed into scrapping from job board (pracuj.pl).
 - can read data from files
 - plots results in histogram
 - multiple scrapped data can be shown and compared on a single chart
+
+# Huffman compression
+Compress files using Huffman algorithm.
+- in progres..
