@@ -97,5 +97,51 @@ def compress(file_path, compressed_path):
     stop = time.time()
     print(f'Time: {stop - start}')
 
-compress(file_path, compressed_path)
+
+###
+def compress_bin(file_path, compressed_path):
+    l = 0
+    start = time.time()
+    #   open output file with append option
+    print('Compressing...')
+    with open(compressed_path, 'ab') as output:
+        #   length of the dictionary
+        output.write(len(ind_dict).to_bytes(1, 'big'))
+        l += 1
+
+        #   add dictionary in ASCII
+        for key in ind_dict.keys():
+            output.write(ord(key).to_bytes(1, 'big'))
+            l += 1
+
+        #   added bits - strored on 3 bits
+        buff = '{0:08b}'.format(R)[-3:]
+
+        #   read file to compress each element
+        with open(file_path, 'r') as file:
+            for line in file:
+                for element in line:
+                    #   append every element to buffor (in binary), only N last bits
+                    buff += '{0:08b}'.format(ind_dict[element])[-N:]
+
+                    #   if bit count >= 8 then store to file
+                    if len(buff) >= 8:
+                        #   convert first 8 bits to int then to char
+                        output.write(int(buff[:8], 2).to_bytes(1, 'big'))
+                        buff = buff[8:]
+                        l += 1
+        
+        #   add extra bits to make sure the output is in whole bytes
+        if R:
+            buff += str('0' * R)
+            output.write(int(buff[:8], 2).to_bytes(1, 'big'))
+            l += 1
+    stop = time.time()
+    print(f'Time: {stop - start}')
+    print(f'Compressed to (in bytes): {l}')
+
+compress_bin('do_kompresji.txt', 'compressed.txt')
 #save_in_binary(file_path, compressed_path)
+    
+w = 69
+print(w.to_bytes(1, 'big'))
