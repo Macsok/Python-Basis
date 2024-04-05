@@ -16,3 +16,6 @@ Web scraper directed into scrapping from job board (pracuj.pl).
 # Huffman compression
 Compress files using Huffman algorithm.
 - in progres..
+
+# Cryptography
+Hides text in image by setting parity of the pixels.
