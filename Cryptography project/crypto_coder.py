@@ -42,7 +42,7 @@ def encrypt(source_image_path, save_as, plain_text):
     bin_text = ''.join('{0:08b}'.format(ord(x), 'b') for x in plain_text)
 
     # check text length and convert to binary ([2:] to omit '0b')
-    length = len(plain_text)
+    length = len(bin_text)
     len_bin = bin(length)[2:]
     # we gave away 100 first bits for writing down length of the encrypted information
     to_write = '0' * (100 - len(len_bin)) + len_bin
@@ -88,8 +88,7 @@ def decrypt(image_path):
 
             # convert length of the secret text to int
             if count == 100:
-                # multiply times 8 because byte = 8 bits
-                read_to = int(bin_len, 2) * 8
+                read_to = int(bin_len, 2)
                 print(f'Length of the message (bits): {read_to}')
 
             # break if whole readed
@@ -110,14 +109,28 @@ def decrypt(image_path):
 
     # convert binary information to ANSI
     plain_text = ''
-    for i in range(int(bin_len, 2)):
+    for i in range(int(bin_len, 2) // 8):
         plain_text += chr(int(text[i * 8 : (i + 1) * 8], 2))
-
-    print([ord(x) for x in plain_text])
     return plain_text
 
 
 # needs to be saved in PNG to not be compressed
-encrypt('sq.jpg', 'out.png', 'japkos')
-print([ord(x) for x in 'japkos'])
-print(decrypt('out.png'))
+def interface():
+    inp = input('e - encrypt, d - decrypt: ')
+    
+    if inp == 'e':
+        in_file = input('Input file: ')
+        out_file = input('Save as [.png]: ')
+        text = input('Text to encrypt: ')
+        print('Encryting...')
+        encrypt(in_file, out_file, text)
+        print('Finished')
+    
+    if inp == 'd':
+        in_file = input('Image to read [.png]: ')
+        print('Reading...')
+        print('Decrypted text:', decrypt(in_file))
+    
+    return 0
+
+interface()
