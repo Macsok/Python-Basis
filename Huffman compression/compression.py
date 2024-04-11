@@ -143,5 +143,5 @@ def compress_bin(file_path, compressed_path):
 compress_bin('do_kompresji.txt', 'compressed.txt')
 #save_in_binary(file_path, compressed_path)
     
-w = 69
+w = 65
 print(w.to_bytes(1, 'big'))
