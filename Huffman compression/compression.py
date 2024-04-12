@@ -5,33 +5,59 @@ import time
 file_path = 'do_kompresji.txt'
 compressed_path = 'compressed.txt'
 
-dictionary = {}
-with open(file_path, 'r') as file:
-    for line in file:
-        for element in line:
-            #   increase value if in the dictionary, add otherwise
-            try: dictionary[element] = dictionary[element] + 1
-            except: dictionary[element] = 1
-#   sort elements in dictionary by keys (ASCII order)
-dictionary = {key:dictionary[key] for key in sorted(dictionary.keys())}
+def create_dictionary():
+    dictionary = {}
+    with open(file_path, 'r', encoding='ANSI') as file:
+        for line in file:
+            for element in line:
+                #   increase value if in the dictionary, add otherwise
+                try: dictionary[element] = dictionary[element] + 1
+                except: dictionary[element] = 1
+    #   sort elements in dictionary by keys (ASCII order)
+    dictionary = {key:dictionary[key] for key in sorted(dictionary.keys())}
+    return dictionary
+
+def dictionary_from_binary():
+    dictionary = {}
+    # current =
+    # output.write(ord(key).to_bytes(1, 'big'))
+ 
+    with open(file_path, 'rb') as file:
+        for line in file:
+            for element in line:
+                #   increase value if in the dictionary, add otherwise
+                try: 
+                    dictionary[chr(element)] = dictionary[chr(element)] + 1
+                except: 
+                    dictionary[chr(element)] = 1
+                # print(element)
+    #   sort elements in dictionary by keys (ASCII order)
+    dictionary = {key:dictionary[key] for key in sorted(dictionary.keys())}
+    return dictionary
+
+# dictionary = create_dictionary()
+dictionary = dictionary_from_binary()
 
 #   assign values to elements in dictionary
 ind = 0
-k = 0
+items = 0
 ind_dict = {}
 for key in dictionary.keys():
+    #   count number of elements to compress
+    items += dictionary[key]
+
+    #assign new indexes
     ind_dict[key] = ind
     ind += 1
-    #   count number of elements to compress
-    k += dictionary[key]
+    
 
 #   how many bits to store each dictionary element
 N = math.ceil(math.log2(len(dictionary)))
 #   how many bits should be added to form whole byte
-R = (8 - (3 + N * k) % 8) % 8
+R = (8 - (3 + N * items) % 8) % 8
 
 #   print dictionary properties
-print(f'Dict: {ind_dict.keys()}\ndict. len: {len(dictionary)}\nN: {N}\nR: {R}')
+print(f'Dict: {ind_dict.keys()}\ndict. len: {len(dictionary)}\nN: {N}\nR: {R}\nlength before compression: {items}')
 
 #   clear output file
 try: open(compressed_path, 'w').close()
@@ -122,7 +148,7 @@ def compress_bin(file_path, compressed_path):
             for line in file:
                 for element in line:
                     #   append every element to buffor (in binary), only N last bits
-                    buff += '{0:08b}'.format(ind_dict[element])[-N:]
+                    buff += '{0:08b}'.format(ind_dict[(element)])[-N:]
 
                     #   if bit count >= 8 then store to file
                     if len(buff) >= 8:
@@ -142,6 +168,3 @@ def compress_bin(file_path, compressed_path):
 
 compress_bin('do_kompresji.txt', 'compressed.txt')
 #save_in_binary(file_path, compressed_path)
-    
-w = 65
-print(w.to_bytes(1, 'big'))
