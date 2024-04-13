@@ -65,11 +65,11 @@ def compress_bin(file_path, compressed_path):
         buff = '{0:08b}'.format(R)[-3:]
 
         #   read file to compress each element
-        with open(file_path, 'r') as file:
+        with open(file_path, 'rb') as file:
             for line in file:
                 for element in line:
                     #   append every element to buffor (in binary), only N last bits
-                    buff += '{0:08b}'.format(ind_dict[(element)])[-N:]
+                    buff += '{0:08b}'.format(ind_dict[chr(element)])[-N:]
 
                     #   if bit count >= 8 then store to file
                     if len(buff) >= 8:
@@ -87,5 +87,6 @@ def compress_bin(file_path, compressed_path):
     print(f'Time: {stop - start}')
     print(f'Compressed to (in bytes): {l}')
 
-compress_bin('do_kompresji.txt', 'compressed.txt')
-#save_in_binary(file_path, compressed_path)
+
+to_compress = input('File to compress: ')
+compress_bin(to_compress, 'compressed.txt')
