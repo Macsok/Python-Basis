@@ -1,0 +1,48 @@
+{całka oznaczona}
+Intuicyjnie całka oznaczona to pole powierzchni między wykresem funkcji {\displaystyle f(x)} 
+w pewnym przedziale {\displaystyle [a,b]} a osią odciętych, wzięte ze znakiem plus dla dodatnich wartości funkcji i minus dla ujemnych. 
+Pojęcie całki oznaczonej, choć intuicyjnie proste, może być sformalizowane na wiele sposobów. 
+Jeśli jakaś funkcja jest całkowalna według dwóch różnych definicji całki oznaczonej, wynik całkowania będzie taki sam.
+
+{Całka nieoznaczona}
+Przez całkę nieoznaczoną, albo funkcję pierwotną rozumie się pojęcie odwrotne do pochodnej funkcji. Całkę oznaczoną na przedziale {\displaystyle [a,b]} 
+można też zdefiniować (tzw. całka Newtona-Leibniza) jako różnicę między wartościami całki nieoznaczonej w punktach {\displaystyle b} oraz {\displaystyle a.} 
+Stąd obliczenie całki nieoznaczonej jest często pierwszym krokiem przy obliczaniu całek oznaczonych.
+Uogólnieniem całki nieoznaczonej jest całka równania różniczkowego będąca rozwiązaniem równania różniczkowego: {\displaystyle F'(x)=f(x),} 
+gdzie {\displaystyle F(x)} jest pierwotną, a {\displaystyle f(x)} oznacza całkowaną funkcję.
+W drugiej połowie XX wieku wprowadzono nowe rodzaje całek nieoznaczonych, które umożliwiają obliczenia w obszarze analizy niearchimedesowej. 
+Jedną z nich jest całka Volkenborna, określona przez granicę
+{\displaystyle \int _{\mathbb {Z} _{p}}f(x)\,\mathrm {d} x=\lim _{n\to \infty }{\frac {1}{p^{n}}}\sum _{x=0}^{p^{n}-1}f(x).}
+
+{Całka Riemanna}
+Niech dana będzie funkcja ograniczona {\displaystyle f\colon [a,b]\to \mathbb {R} .} 
+Sumą częściową Riemanna nazywa się liczbę {\displaystyle R_{f,P(q_{1},\dots ,q_{n})}=\sum _{i=1}^{n}f(q_{i})\cdot \Delta p_{i}.}
+Funkjcę {\displaystyle f} nazywa się całkowalną w sensie Riemanna lub krótko R-całkowalną, jeśli dla dowolnego ciągu normalnego {\displaystyle (P^{k})} 
+podziałów przedziału {\displaystyle [a,b],} istnieje (niezależna od wyboru punktów pośrednich) granica {\displaystyle R_{f}=\lim _{k\to \infty }R_{f,P^{k}\left(q_{1}^{k},\dots ,q_{n_{k}}^{k}\right)}}
+nazywana wtedy całką Riemanna tej funkcji. 
+Równoważnie: jeżeli istnieje taka liczba {\displaystyle R_{f},} że dla dowolnej liczby rzeczywistej {\displaystyle \varepsilon >0} 
+istnieje taka liczba rzeczywista  {\displaystyle \delta >0,} że dla dowolnego podziału {\displaystyle P(q_{1},\dots ,q_{n})} 
+o średnicy {\displaystyle \mathrm {diam} \;P(q_{1},\dots ,q_{n})<\delta ;} 
+bądź też w języku rozdrobnień: że dla dowolnej liczby rzeczywistej {\displaystyle \varepsilon >0} 
+istnieje taki podział {\displaystyle S(t_{1},\dots ,t_{m})} 
+przedziału {\displaystyle [a,b],} że dla każdego podziału {\displaystyle P(q_{1},\dots ,q_{n})} 
+rozdrabniającego {\displaystyle S(t_{1},\dots ,t_{m})} 
+zachodzi{\displaystyle \left|R_{f,P(q_{1},\dots ,q_{n})}-R_{f}\right|<\varepsilon .}
+Funkcję {\displaystyle f} nazywa się wtedy całkowalną w sensie Riemanna (R-całkowalną), a liczbę {\displaystyle R_{f}} jej całką Riemanna.
+{całka Darboux}
+
+{Całka Darboux, górna i dolna}
+Niech dana będzie funkcja ograniczona {\displaystyle f\colon [a,b]\to \mathbb {R} .} 
+Kresy dolny i górny funkcji {\displaystyle f} w danym podprzedziale {\displaystyle P_{i}} 
+podziału {\displaystyle P} przedziału {\displaystyle [a,b]} oznaczane będą odpowiednio symbolami
+{\displaystyle m_{f,P_{i}}=\inf _{x\in P_{i}}f(x)\quad {\text{ oraz }}\quad M_{f,P_{i}}=\sup _{x\in P_{i}}f(x);}
+różnicę tych liczb {\displaystyle \omega _{f,P_{i}}=M_{f,P_{i}}-m_{f,P_{i}}}
+nazywa się oscylacją funkcji {\displaystyle f} na przedziale {\displaystyle P_{i}.}
+Odpowiednio sumą dolną i górną (Darboux) nazywa się liczby
+{\displaystyle L_{f,P}=\sum _{i=1}^{n}m_{f,P_{i}}\cdot \Delta p_{i}\quad {\text{ oraz }}\quad U_{f,P}=\sum _{i=1}^{n}M_{f,P_{i}}\cdot \Delta p_{i}.}
+Wielkości te umożliwiają zdefiniowanie całki dolnej i górnej Darboux funkcji {\displaystyle f} jako odpowiednio
+{\displaystyle L_{f}=\sup {\big \{}L_{f,P}\colon P{\text{ jest podziałem }}[a,b]{\big \}}}
+oraz {\displaystyle U_{f}=\inf {\big \{}U_{f,P}\colon P{\text{ jest podziałem }}[a,b]{\big \}}.}
+O funkcji {\displaystyle f} mówi się, że jest całkowalna w sensie Darboux lub krótko D-całkowalną, jeżeli 
+{\displaystyle L_{f}=U_{f};} wówczas tę wspólną wartość {\displaystyle D_{f}} 
+całki dolnej i górnej Darboux nazywa się po prostu całką Darboux.
