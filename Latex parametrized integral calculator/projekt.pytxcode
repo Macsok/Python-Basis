@@ -1,0 +1,81 @@
+=>PYTHONTEX#py#default#default#0#code#####28#
+from wykresy import *
+#-------------------------------------------
+#	Parametryzacja
+
+#y = f(x)
+funkcja = "8/(19*x**2) + x**2 - 4 - sympy.sin(x)"
+	
+#na ile elementów dzielimy odcinek
+n = 15
+
+#wybierz przedział całkowania (a, b)
+a = 1
+b = 10
+	
+#-------------------------------------------
+
+def f(x):
+	return sympy.sympify(str(funkcja))
+
+x = sympy.symbols("x")
+funkcja = eval(funkcja)
+
+RIEMANN = riemann_integral(f, 'x', a, b, n, 'riemann.pgf')[0]
+DARBOUX = darboux_sums(f, 'x', a, b, n, 'darboux.pgf')
+TRAPEZOID = trapezoid_rule(f, 'x', a, b, n, 'trapez.pgf')[0]
+
+def trunc(input):
+	return '{:0.2f}'.format(input)
+
+=>PYTHONTEX#py#default#default#1#i#####92#
+sympy.latex(funkcja)
+=>PYTHONTEX#py#default#default#2#i#####101#
+trunc(RIEMANN)
+=>PYTHONTEX#py#default#default#3#i#####113#
+trunc(DARBOUX[0])
+=>PYTHONTEX#py#default#default#4#i#####114#
+trunc(DARBOUX[1])
+=>PYTHONTEX#py#default#default#5#i#####125#
+trunc(TRAPEZOID)
+=>PYTHONTEX#py#default#default#6#i#####132#
+sympy.latex(funkcja)
+=>PYTHONTEX#py#default#default#7#i#####133#
+a
+=>PYTHONTEX#py#default#default#8#i#####133#
+b
+=>PYTHONTEX#py#default#default#9#i#####134#
+n
+=>PYTHONTEX#py#default#default#10#i#####144#
+trunc(RIEMANN)
+=>PYTHONTEX#py#default#default#11#i#####144#
+trunc(DARBOUX[1])
+=>PYTHONTEX#py#default#default#12#i#####144#
+trunc(DARBOUX[0])
+=>PYTHONTEX#py#default#default#13#i#####144#
+trunc(TRAPEZOID)
+=>PYTHONTEX:SETTINGS#
+version=0.18
+outputdir=pythontex-files-projekt
+workingdir=.
+workingdirset=false
+gobble=none
+rerun=default
+hashdependencies=default
+makestderr=false
+stderrfilename=full
+keeptemps=none
+pyfuture=default
+pyconfuture=none
+pygments=true
+pygglobal=:GLOBAL||
+fvextfile=-1
+pyconbanner=none
+pyconfilename=stdin
+depythontex=false
+pygfamily=py|python3|
+pygfamily=pycon|pycon|
+pygfamily=sympy|python3|
+pygfamily=sympycon|pycon|
+pygfamily=pylab|python3|
+pygfamily=pylabcon|pycon|

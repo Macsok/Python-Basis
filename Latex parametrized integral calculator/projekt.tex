@@ -1,0 +1,148 @@
+% !TeX TXS-program:compile = txs:///pythontex
+\documentclass[a4paper]{article}
+\usepackage{geometry}  
+\geometry{a4paper, total={170mm, 257mm}, left=20mm, top=20mm,}
+\usepackage[utf8]{inputenc}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{pgfplots}
+\usepackage{pythontex}
+\usepackage{multirow}
+%biblioteka potrzebna do wyświetlenia ą,ę, itd.
+\usepackage{polski}
+%biblioteka z formatowaniem matematycznym
+\usepackage{amsmath}
+\usepackage{mathalfa}
+\usepackage{amsfonts}
+\usepackage[T1]{fontenc}
+
+\title{\textbf{Analiza matematyczna --- całkowanie dowolnej funkcji --- porównanie całkowania dolnego, górnego, numerycznego (przez trapezy) z całką oznaczoną (całka Riemanna).}}
+\author{J. Ć., W. D., Maciej S.}
+\date{05.02.2024}
+
+\begin{document}
+\maketitle
+\vspace{3cm}
+\newtheorem{definition}{Definicja}
+
+\begin{pycode}
+from wykresy import *
+#-------------------------------------------
+#	Parametryzacja
+
+#y = f(x)
+funkcja = "8/(19*x**2) + x**2 - 4 - sympy.sin(x)"
+	
+#na ile elementów dzielimy odcinek
+n = 15
+
+#wybierz przedział całkowania (a, b)
+a = 1
+b = 10
+	
+#-------------------------------------------
+
+def f(x):
+	return sympy.sympify(str(funkcja))
+
+x = sympy.symbols("x")
+funkcja = eval(funkcja)
+
+RIEMANN = riemann_integral(f, 'x', a, b, n, 'riemann.pgf')[0]
+DARBOUX = darboux_sums(f, 'x', a, b, n, 'darboux.pgf')
+TRAPEZOID = trapezoid_rule(f, 'x', a, b, n, 'trapez.pgf')[0]
+
+def trunc(input):
+	return '{:0.2f}'.format(input)
+
+\end{pycode}
+
+\section{Wprowadzenie merytoryczne}
+\subsection{Całka nieoznaczona}
+\begin{definition}
+	Jeśli $F(x)$ jest funkcją pierwotną $f(x)$ na przedziale $I$, to wyrażenie $F(x) + C$ nazywamy całką nieoznaczoną funkcji $f(x)$ na $I$ i oznaczamy: $$\int f(x)dx = F(x) + C,$$ gdzie $C$ to dowolna stała.
+\end{definition}
+Przez całkę nieoznaczoną albo funkcję pierwotną rozumie się pojęcie odwrotne do pochodnej funkcji. Stąd obliczenie całki nieoznaczonej jest często pierwszym krokiem przy obliczaniu całek oznaczonych. W drugiej połowie XX wieku wprowadzono nowe rodzaje całek nieoznaczonych, które umożliwiają obliczenia w obszarze analizy niearchimedesowej. Jedną z nich jest całka Volkenborna, określona przez granicę:
+{$$\displaystyle \int _{\mathbb {Z} _{p}}f(x)\,\mathrm {d} x=\lim _{n\to \infty }{ {1}{p^{n}}}\sum _{x=0}^{p^{n}-1}f(x)$$}.
+
+\subsection{Całka oznaczona (w sensie Riemanna)}
+
+Intuicyjnie całka oznaczona to pole powierzchni między wykresem funkcji {$\displaystyle f(x)$} 
+w pewnym przedziale {$\displaystyle [a, b]$} a osią odciętych, wzięte ze znakiem plus dla dodatnich wartości funkcji i minus dla ujemnych. Pojęcie całki oznaczonej, choć intuicyjnie proste, może być sformalizowane na wiele sposobów. Jeśli jakaś funkcja jest całkowalna według dwóch różnych definicji całki oznaczonej, wynik całkowania będzie taki sam. Jeśli jak poprzednio przez $F(x)$ oznaczymy funkcję pierwotną $f(x)$, to całkę oznaczoną na przedziale $[a, b]$ obliczymy w następujący sposób:
+$$ \int \limits _{a}^{b}f(x)dx = F(b) - F(a)$$
+	
+\subsection{Całkowanie górne i dolne}
+\begin{definition}
+	Podziałem $P = (x_0, x_1, x_2, ..., x_n)$ odcinka $[a ,b]$ nazywamy dowolny, skończony rosnący ciąg liczb $(x_0, x_1, x_2, ..., x_n)$ taki, że $x_0 = a$, $x_n = b$, $n \in N_+$.
+\end{definition}
+\begin{definition}
+	Niech $f(x)$ będzie ograniczoną funkcją na $[a, b]$. Sumą górną $f(x)$ względem $P$ nazywamy $U(f, P) = \sum_{i=1}^{n} \Delta x_i m_i$, gdzie $\Delta x_i = x_{i-1} - x_i$, $M_i = \sup \left\lbrace f(x) : x \in [x_{i-1}, x_i] \right\rbrace $
+\end{definition}
+Analogicznie definiujemy sumę dolną i oznaczamy: $L(f, P)$.
+\begin{definition}
+	Niech $f$ będzie funkcją ciągłą na przedziale $[a, b]$, P --- podział odcinka $[a, b]$. Całką górną nazywamy:
+	$$\overline{\int_{a}^{{b}}} f = \inf \left\lbrace U(f, P) \right\rbrace $$
+\end{definition}
+Powyższą definicję interpretujemy jako najmniejszą sumę górnego podziału odcinka $[a, b]$.
+
+\subsection{Całkowanie numeryczne: przez trapezy}
+To całkowanie polega na przybliżaniu pola pod wykresem funkcji $f(x)$ poprzez podział odcinka $[a, b]$ na $n$ części i wyznaczenie pola trapezu, gdzie wysokość w punkcie $x_{i-1}$ jest równa $f(x_{i-1})$, a w punkcie $x_{i}$ jest równa $f(x_{i})$. W ten sposób dostajemy $n$ trapezów, których zsumowane pole przybliża faktyczne pole pod wykresem funkcji $f(x)$ - im większa wartość n, tym lepsze przybliżenie.
+
+\section{Analiza zadanej funkcji}
+Wybrana przez nas funkcja ma postać: $f(x) = \py{sympy.latex(funkcja)}$. Poniżej przedstawiamy wizualne reprezentacje różnych metod całkowania i osiągnięte wyniki.
+
+\subsection{Całka Riemanna}
+Wizualizacja graficzno-geometryczna całki w sensie Riemanna:
+\begin{figure}[h]
+	\input{wykresy/riemann.pgf}
+	\caption{Całka w sensie Riemanna}
+\end{figure}
+
+Wyznaczone pole pomiędzy wykresem funkcji a osią $OX$ wynosi: $\py{trunc(RIEMANN)}$.
+
+\subsection{Całkowanie górne i dolne}
+Wizualizacja graficzno-geometryczna całkowania górnego i dolnego. Dla całkowania górnego i dolnego dzielimy nasz przedział $[a, b]$ na $N$ równych części. Całka górna za wysokość prostokąta, przybliżającego fragment pola pod wykresem, przyjmuje największą wartość na aktualnym przedziale $[x_{i-1}, x_i]$. Całka dolna działa podobnie, jednak za wysokość prostokąta przyjmowana jest wartość najmniejsza. Kolor różowy reprezentuje sumy górne, kolor zielony --- sumy dolne, brązowy --- oba słupki się pokrywają.
+
+\begin{figure}[h]
+	\input{wykresy/darboux.pgf}
+	\caption{Sumy dolne i górne.}
+\end{figure}
+
+Wyznaczone, przybliżone pole przez:
+\begin{itemize}
+	\item sumy dolne: $\py{trunc(DARBOUX[0])}$
+	\item sumy górne: $\py{trunc(DARBOUX[1])}$
+\end{itemize} 
+
+\subsection{Całkowanie numeryczne - przez trapezy}
+Metoda całkowania numerycznego opiera się na przybliżaniu pola pod wykresem funkcji za pomocą trapezów. Wysokością trapezu jest odcinek $[x_{i-1}, x_i]$ a podstawami są odpowiednio wartości funkcji $f$ w punktach $x_{i-1}$ i $x_i$. Ta metoda w większości przypadków jest dużo dokładniejsza od sumowania dolnego i górnego, lecz nie idealna --- zakładamy bowiem, że funkcja na odpowiednich przedziałach $[x_{i-1}, x_i]$ jest liniowa. Jak w poprzedniej metodzie --- oczywiście --- jeśli odcinek podzielimy na więcej fragmentów, to otrzymamy dokładniejszy wynik.
+\vspace{4cm}
+\begin{figure}[ht]
+	\input{wykresy/trapez.pgf}
+	\caption{Całka przybliżona trapezami}
+\end{figure}
+
+Wyznaczone, przybliżone pole przez sumę pól trapezów: $\py{trunc(TRAPEZOID)}$
+
+\section{Porównanie wyników}
+W tabeli przedstawione osiągnięte wyniki dla użytych metod obliczania całki oznaczonej, wyznaczone dla:
+
+\vspace{1cm}
+\begin{itemize}
+	\item Wybrana funkcja: $f(x) = \py{sympy.latex(funkcja)}$
+	\item Wybrany przedział: $(\py{a}, \py{b})$
+	\item Odcinek podzielony na $\py{n}$ równych części
+\end{itemize}
+	
+\vspace{1cm}
+\begin{tabular}{ |p{3cm}||p{3cm}|p{3cm}|p{3cm}|p{3cm}| }
+	\hline
+	\multicolumn{5}{|c|}{Wyniki} \\
+	\hline
+	Metoda &Całka Riemanna &Sumy górne &Sumy dolne &Trapezy\\
+	\hline
+	Wynik   &$\py{trunc(RIEMANN)}$ &$\py{trunc(DARBOUX[1])}$ &$\py{trunc(DARBOUX[0])}$ &$\py{trunc(TRAPEZOID)}$ \\
+	\hline
+\end{tabular}
+	
+\end{document}
