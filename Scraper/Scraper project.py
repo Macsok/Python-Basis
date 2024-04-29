@@ -273,7 +273,8 @@ for current_page in pages_list:
         technologies_list_array.append((offer.find('div', attrs = {'data-test' : 'technologies-list'}).text if offer.find('div', attrs = {'data-test' : 'technologies-list'}) else None))
 
         #   When was added
-        date_array.append(offer.find('p', attrs = {'data-test' : 'text-added'}).text)
+        #date_array.append(offer.find('p', attrs = {'data-test' : 'text-added'}).text)
+        date_array.append(offer.find('p', attrs = {'data-test' : 'text-added'}))
 
         #   Check if is super offer
         if offer.find('span', attrs = {'data-test' : 'text-super-offer'}):
