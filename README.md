@@ -12,7 +12,7 @@ Web scraper directed into scrapping from job board (pracuj.pl).
 - can read data from files
 - plots results in histogram
 - multiple scrapped data can be shown and compared on a single chart
-  ![alt text](https://github.com/Macsok/Python-basis/blob/Scraper/scraper.png?raw=true)
+  ![alt text](https://github.com/Macsok/Python-basis/blob/Scraper/scraper.jpg?raw=true)
 
 # Huffman compression
 Compress files using Huffman algorithm.
