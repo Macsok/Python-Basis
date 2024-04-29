@@ -15,7 +15,7 @@ Web scraper directed into scrapping from job board (pracuj.pl).
 
 - 
   ![alt text](/Scraper/scraper.jpg?raw=true)
-  <img src="/Scraper/scraper.jpg" alt="Employee data" title="Employee Data title">
+  <img src="/Scraper/scraper gui.jpg" alt="Employee data" title="Employee Data title">
 
 # Huffman compression
 Compress files using Huffman algorithm.
