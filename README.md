@@ -12,7 +12,7 @@ Web scraper directed into scrapping from job board (pracuj.pl).
 - can read data from files
 - plots results in histogram
 - multiple scrapped data can be shown and compared on a single chart
-  <img src="Scraper/scraper gui.jpg" alt="Italian Trulli">
+  <img src="Scraper/scraper gui.png" alt="GUI">
 
 # Huffman compression
 Compress files using Huffman algorithm.
