@@ -12,7 +12,7 @@ Web scraper directed into scrapping from job board (pracuj.pl).
 - can read data from files
 - plots results in histogram
 - multiple scrapped data can be shown and compared on a single chart
-<div style="width:60px; height:60px; position:center">
+<div style="width:60px; height:60px; align:center">
 GUI: <img src="/Scraper/scraper gui.jpg" alt="Employee data" title="Employee Data title">
 <div>
 
