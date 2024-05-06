@@ -14,7 +14,11 @@ Web scraper directed into scrapping from job board (pracuj.pl).
 - multiple scrapped data can be shown and compared on a single chart
 - GUI:
 
-<img src="/Scraper/scraper gui.jpg" alt="Employee data" title="Employee Data title">
+<img src="/Scraper/scraper gui.jpg" alt="gui" title="gui">
+
+- Compared results:
+- 
+<img src="/Scraper/scraper histogram.jpg" alt="histogram" title="histogram">
 
 # Huffman compression
 Compress files using Huffman algorithm.
