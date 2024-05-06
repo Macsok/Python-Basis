@@ -17,7 +17,7 @@ Web scraper directed into scrapping from job board (pracuj.pl).
 <img src="/Scraper/scraper gui.jpg" alt="gui" title="gui">
 
 - Compared results:
-- 
+
 <img src="/Scraper/scraper histogram.jpg" alt="histogram" title="histogram">
 
 # Huffman compression
