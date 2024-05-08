@@ -25,7 +25,7 @@ Compress files using Huffman algorithm.
 - compress files using Huffman algorithm
 - reduces file size
 - provides encryption and decryption
-- note: not well optimized
+- note: not (yet) well optimized
 
 # Cryptography
 Hides text in image by setting parity of the pixels. Provides some level of steganography because doesn't change every pixel - only if needed. 
