@@ -31,3 +31,6 @@ Compress files using Huffman algorithm.
 Hides text in image by setting parity of the pixels. Provides some level of steganography because doesn't change every pixel - only if needed. 
 - uses provided graphics to hide the text in a pixel value parity
 - let's to read hidden text from an image
+
+# AES encoding and decoding
+- in progess..
