@@ -2,6 +2,7 @@
 #   Sources / Inspirations
 #
 # https://medium.com/codex/aes-how-the-most-advanced-encryption-actually-works-b6341c44edb9
+# based on:
 # https://github.com/bozhu/AES-Python/blob/master/aes.py
 #
 
@@ -209,16 +210,76 @@ class AES:
 
 # initializing
 key = 0x2b7e151628aed2a6abf7158809cf4f3c
-AES_repr = AES(key)
+print(key)
 
-plain = 'hyper secret'
-plain = 0x3243f6a8885a308d313198a2e0370734
-plain = 0b10101010101010101001010101011001101010101010011010101010010110100101010101010101010101011111111111111111111111111111111111111111
-plain = 2 ** 128 - 1
-# plain = 0b111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
+def read_wholefile(path):
+    with open(path, 'rb') as f:
+        return f.read()
 
-print(int(plain))
-encrypted =  AES_repr.encrypt(plain)
-print(encrypted)
-decrypted = AES_repr.decrypt(encrypted)
-print(decrypted == plain)
+
+def encodeFile(default = True):
+    # get inputs
+    file = str(input('Provide a file to encode:'))
+    if default: file = 'test.txt'
+    new_file = file.split('.')[0] + '_AES.' + file.split('.')[1]
+    key_file = str(input('key (in txt file):'))
+
+    # get key
+    #key = int(read_wholefile(key_file))
+    if default: key = 0x2b7e151628aed2a6abf7158809cf4f3c
+
+    # initialization
+    Cipher = AES(key)
+
+    # create output file 
+    try: open(new_file, 'w').close()
+    except: 
+        print('Unable to clear output file.')
+        return 1
+    out = open(new_file, 'a')
+
+    with open(file, "r") as f:
+        while (chunk := f.read(16)):
+            print(chunk)
+            bits = ''.join(format(ord(i), '08b') for i in chunk)
+            out.write(str(Cipher.encrypt(int(bits))))
+
+    out.close()
+
+
+def decodeFile(default = True):
+    # get inputs
+    file = str(input('Provide a file to decode:'))
+    if default: file = 'test.txt'
+    new_file = file.split('.')[0] + '_decoded.' + file.split('.')[1]
+    key_file = str(input('key (in txt file):'))
+
+    # get key
+    #key = int(read_wholefile(key_file))
+    if default: key = 0x2b7e151628aed2a6abf7158809cf4f3c
+    key = 0x2b7e151628aed2a6abf7158809cf4f3c
+
+    # initialization
+    Cipher = AES(key)
+
+    # create output file 
+    try: open(new_file, 'w').close()
+    except: 
+        print('Unable to clear output file.')
+        return 1
+    out = open(new_file, 'ab')
+
+    with open(file, "r") as f:
+        while (chunk := f.read(16)):
+            # print(chunk)
+            bits = ''.join(format(ord(i), '08b') for i in chunk)
+            encr = Cipher.decrypt(int(bits))
+            encr_filled = bin(encr)[2:].zfill(128)
+            # write results
+            for i in range(128 // 8):
+                out.write(int(encr_filled[8*i : 8*i+8], base=2).to_bytes(1, 'big'))
+
+    out.close()
+
+# encodeFile()
+decodeFile(False)
