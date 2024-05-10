@@ -6,6 +6,9 @@
 # https://github.com/bozhu/AES-Python/blob/master/aes.py
 #
 
+import numpy as np
+import time
+
 # defining ststic Sbox and inversed one (Rijndael’s field)
 Sbox = (
     0x63, 0x7C, 0x77, 0x7B, 0xF2, 0x6B, 0x6F, 0xC5, 0x30, 0x01, 0x67, 0x2B, 0xFE, 0xD7, 0xAB, 0x76,
@@ -208,10 +211,6 @@ class AES:
 # maximum number that can be encrypted 2^128 - 1
 
 
-# initializing
-key = 0x2b7e151628aed2a6abf7158809cf4f3c
-print(key)
-
 def read_wholefile(path):
     with open(path, 'rb') as f:
         return f.read()
@@ -219,13 +218,17 @@ def read_wholefile(path):
 
 def encodeFile(default = True):
     # get inputs
-    file = str(input('Provide a file to encode:'))
+    file = str(input('Provide a file to encode: '))
     if default: file = 'test.txt'
     new_file = file.split('.')[0] + '_AES.' + file.split('.')[1]
-    key_file = str(input('key (in txt file):'))
+    key_file = str(input('key (in txt file, ranged from 2^0 to 2^128): '))
+    print('Encrypting...')
+
+    # start timer
+    start = time.time()
 
     # get key
-    #key = int(read_wholefile(key_file))
+    key = int(read_wholefile(key_file), base=0)
     if default: key = 0x2b7e151628aed2a6abf7158809cf4f3c
 
     # initialization
@@ -233,31 +236,37 @@ def encodeFile(default = True):
 
     # create output file 
     try: open(new_file, 'w').close()
-    except: 
+    except:
         print('Unable to clear output file.')
         return 1
-    out = open(new_file, 'a')
+    out = open(new_file, 'ab')
 
-    with open(file, "r") as f:
+    with open(file, "rb") as f:
         while (chunk := f.read(16)):
-            print(chunk)
-            bits = ''.join(format(ord(i), '08b') for i in chunk)
-            out.write(str(Cipher.encrypt(int(bits))))
-
+            # convert to int, encrypt, save to file
+            numb = int.from_bytes(chunk, 'big')
+            to_write = Cipher.encrypt(numb)
+            out.write(to_write.to_bytes(16, 'big'))
     out.close()
+    
+    stop = time.time()
+    print('Done in', int(stop - start), 's.')
 
 
 def decodeFile(default = True):
     # get inputs
-    file = str(input('Provide a file to decode:'))
+    file = str(input('Provide a file to decode: '))
     if default: file = 'test.txt'
     new_file = file.split('.')[0] + '_decoded.' + file.split('.')[1]
-    key_file = str(input('key (in txt file):'))
+    key_file = str(input('key (in txt file, ranged from 2^0 to 2^128): '))
+    print('Decrypting...')
+
+    # start timer
+    start = time.time()
 
     # get key
-    #key = int(read_wholefile(key_file))
     if default: key = 0x2b7e151628aed2a6abf7158809cf4f3c
-    key = 0x2b7e151628aed2a6abf7158809cf4f3c
+    else: key = int(read_wholefile(key_file), base=0)
 
     # initialization
     Cipher = AES(key)
@@ -269,17 +278,31 @@ def decodeFile(default = True):
         return 1
     out = open(new_file, 'ab')
 
-    with open(file, "r") as f:
+    with open(file, "rb") as f:
         while (chunk := f.read(16)):
-            # print(chunk)
-            bits = ''.join(format(ord(i), '08b') for i in chunk)
-            encr = Cipher.decrypt(int(bits))
-            encr_filled = bin(encr)[2:].zfill(128)
-            # write results
-            for i in range(128 // 8):
-                out.write(int(encr_filled[8*i : 8*i+8], base=2).to_bytes(1, 'big'))
+            in_numb = int.from_bytes(chunk, 'big')
+            encr = bin(Cipher.decrypt(in_numb))[2:]
+            encr_filled = encr.zfill(int( np.ceil(len(str(encr)) / 8.0) * 8) )
 
+            # write results
+            for i in range(len(str(encr_filled)) // 8):
+                out.write(int(encr_filled[8*i : 8*i+8], base=2).to_bytes(1, 'big'))
     out.close()
 
-# encodeFile()
-decodeFile(False)
+    stop = time.time()
+    print('Done in', int(stop - start), 's.')
+
+
+def interface():
+    decision = str(input('e - Encryption, d - Decryption: '))
+    match decision:
+        case 'e':
+            encodeFile(False)
+        case 'd':
+            decodeFile(False)
+        case _:
+            pass
+    return 1
+
+
+interface()
