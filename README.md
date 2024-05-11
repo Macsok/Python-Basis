@@ -8,7 +8,6 @@
   .aligncenter {
     text-align: center;
   }
-</style>
 
 Python scripts, solved problems and small projects.
 
@@ -46,3 +45,5 @@ Hides text in image by setting parity of the pixels. Provides some level of steg
 
 # AES encoding and decoding
 - encoding and decoding files using AES algorithm with external key
+
+</style>
