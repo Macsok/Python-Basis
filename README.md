@@ -16,8 +16,8 @@ Web scraper directed into scrapping from job board (pracuj.pl).
   
 - GUI and compared results:
   
-<img src="/Scraper/scraper gui.jpg" alt="gui" title="gui" height="500"/>
-<img src="/Scraper/scraper histogram.jpg" alt="histogram" title="histogram" height="500">
+<img src="/Scraper/scraper gui.jpg" alt="gui" title="gui" height="400"/>
+<img src="/Scraper/scraper histogram.jpg" alt="histogram" title="histogram" height="400">
 
 </div>
 
