@@ -14,11 +14,11 @@ Web scraper directed into scrapping from job board (pracuj.pl).
 - multiple scrapped data can be shown and compared on a single chart
 - GUI:
 
-<img src="/Scraper/scraper gui.jpg" alt="gui" title="gui" height="100">
+<img src="/Scraper/scraper gui.jpg" alt="gui" title="gui" height="500">
 
 - Compared results:
 
-<img src="/Scraper/scraper histogram.jpg" alt="histogram" title="histogram">
+<img src="/Scraper/scraper histogram.jpg" alt="histogram" title="histogram" height=50%>
 
 # Huffman compression
 Compress files using Huffman algorithm.
