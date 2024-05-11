@@ -14,7 +14,7 @@ Web scraper directed into scrapping from job board (pracuj.pl).
 - multiple scrapped data can be shown and compared on a single chart
 - GUI:
 
-<img src="/Scraper/scraper gui.jpg" alt="gui" title="gui">
+<img src="/Scraper/scraper gui.jpg" alt="gui" title="gui" height="100">
 
 - Compared results:
 
