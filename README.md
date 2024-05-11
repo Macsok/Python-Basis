@@ -1,3 +1,10 @@
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
 Python scripts, solved problems and small projects.
 
 # Operating Systems (OS) Algorithms
