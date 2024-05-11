@@ -14,10 +14,10 @@ Web scraper directed into scrapping from job board (pracuj.pl).
 - multiple scrapped data can be shown and compared on a single chart
 <div align="center">
   
-- GUI:
+- GUI and compared results:
   
 <img src="/Scraper/scraper gui.jpg" alt="gui" title="gui" height="500"/>
-<img src="/Scraper/scraper histogram.jpg" alt="histogram" title="histogram" height=50%>
+<img src="/Scraper/scraper histogram.jpg" alt="histogram" title="histogram" height="500">
 
 </div>
 
