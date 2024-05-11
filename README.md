@@ -33,4 +33,4 @@ Hides text in image by setting parity of the pixels. Provides some level of steg
 - let's to read hidden text from an image
 
 # AES encoding and decoding
-- in progess..
+- encoding and decoding files using AES algorithm with external key
